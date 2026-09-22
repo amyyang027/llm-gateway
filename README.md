@@ -32,7 +32,10 @@ cp .env.example .env
 
 Fill in at least one provider in `.env`:
 
-- **Groq** (fast, generous free tier) — get a key at https://console.groq.com
+- **Groq** (fast, generous free tier) — get a key at https://console.groq.com.
+  Groq retires older models periodically; if `GROQ_MODEL` 404s, list what's
+  currently available on your key with
+  `curl https://api.groq.com/openai/v1/models -H "Authorization: Bearer $GROQ_API_KEY"`
 - **Gemini** (Google's free tier) — get a key at https://aistudio.google.com/apikey
 - **Ollama** (fully local, no key, no rate limit) — install from https://ollama.com,
   then `ollama pull llama3.2` and `ollama serve`
