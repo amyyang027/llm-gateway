@@ -84,8 +84,25 @@ src/
 
 ## Deploying for free
 
-- **Render** or **Fly.io** free tier for the server itself
-- **Upstash** free tier for Redis (optional — in-memory works for a demo)
+This repo includes a `render.yaml` Blueprint, so deploying to Render's free
+tier (no credit card) takes a few clicks:
+
+1. Go to https://dashboard.render.com/blueprints → **New Blueprint Instance**
+2. Connect your GitHub account and pick the `llm-gateway` repo
+3. Render reads `render.yaml` and prompts you for the secret values
+   (`GATEWAY_API_KEY`, `GROQ_API_KEY`, `GEMINI_API_KEY`) — paste your Groq
+   key in directly on Render's dashboard, not anywhere else
+4. Deploy — you'll get a public URL like `https://llm-gateway-xxxx.onrender.com`
+
+Notes:
+- The free plan spins the service down after 15 minutes of no traffic; the
+  first request after idle takes ~30-50s to cold-start, then it's fast again
+- `ollama` is dropped from `PROVIDER_ORDER` in `render.yaml` since there's no
+  local Ollama instance reachable from Render — it's still in the code, so
+  local dev can still fall back to it
+- **Upstash** free tier for real Redis (optional — in-memory works for a demo,
+  but resets on every cold start on Render's free plan, so Redis is worth it
+  if you deploy this for real)
 - The JSONL log works fine for a single-instance deployment; swap for
   Postgres (e.g. Supabase free tier) if you outgrow one instance
 

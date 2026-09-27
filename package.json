@@ -4,6 +4,9 @@
   "description": "A reliability-focused gateway that routes requests across multiple free LLM providers with caching, rate limiting, and fallback.",
   "main": "dist/server.js",
   "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
